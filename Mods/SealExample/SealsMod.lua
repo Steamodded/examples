@@ -4,7 +4,7 @@
 --- MOD_AUTHOR: [stupxd]
 --- PREFIX: seel
 --- MOD_DESCRIPTION: Modded seal example
---- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0812d]
+--- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-1314c]
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
@@ -18,15 +18,13 @@ SMODS.Seal {
         -- Badge name (displayed on card description when seal is applied)
         label = 'Blu Seal',
         -- Tooltip description
-        description = {
-            name = 'Blu Seal',
-            text = {
-                '{C:mult}+#1#{} Mult',
-                '{C:chips}+#2#{} Chips',
-                '{C:money}$#3#{}',
-                '{X:mult,C:white}X#4#{} Mult',
-            }
-        },
+        name = 'Blu Seal',
+        text = {
+            '{C:mult}+#1#{} Mult',
+            '{C:chips}+#2#{} Chips',
+            '{C:money}$#3#{}',
+            '{X:mult,C:white}X#4#{} Mult',
+        }
     },
     loc_vars = function(self, info_queue)
         return { vars = {self.config.mult, self.config.chips, self.config.money, self.config.x_mult, } }
@@ -37,8 +35,8 @@ SMODS.Seal {
     -- self - this seal prototype
     -- card - card this seal is applied to
     calculate = function(self, card, context)
-        -- repetition_only context is used for red seal retriggers
-        if not context.repetition_only and context.cardarea == G.play then
+        -- main_scoring context is used whenever the card is scored
+        if context.main_scoring and context.cardarea == G.play then
             return {
                 mult = self.config.mult,
                 chips = self.config.chips,
@@ -60,31 +58,18 @@ SMODS.Atlas {
 
 SMODS.Consumable {
     set = "Spectral",
-    name = "modded-Spectral",
     key = "honk",
 	config = {
-        -- This will add a tooltip for seal when hovering on spectral.
-        -- `s` means seal (set), `seel` is mod prefix, `_seal` is added at the end automatically for all seals
-        mod_conv = 's_seel_blu_seal',
-        -- Tooltip args
-        seal = { mult = 5, chips = 20, money = 1, x_mult = 1.5 },
         -- How many cards can be selected.
         max_highlighted = 1,
+        -- the key of the seal to change to
+        extra = 'seel_blu',
     },
-    loc_vars = function(self, info_queue, center)
+    loc_vars = function(self, info_queue, card)
         -- Handle creating a tooltip with seal args.
-        info_queue[#info_queue+1] = {
-            set = 'Other',
-            key = 's_seel_blu_seal',
-            specific_vars = {
-                self.config.seal.mult,
-                self.config.seal.chips,
-                self.config.seal.money,
-                self.config.seal.x_mult,
-            }
-        }
+        info_queue[#info_queue+1] = G.P_SEALS[(card.ability or self.config).extra]
         -- Description vars
-        return {vars = {center.ability.max_highlighted}}
+        return {vars = {(card.ability or self.config).max_highlighted}}
     end,
     loc_txt = {
         name = 'Honk',
@@ -97,28 +82,24 @@ SMODS.Consumable {
     atlas = "honk_atlas",
     pos = {x=0, y=0},
     use = function(self, card, area, copier)
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.1,
-            func = function()
-                for i = 1, card.ability.max_highlighted do
-                    local highlighted = G.hand.highlighted[i]
-
-                    if highlighted then
-                        highlighted:set_seal('s_seel_blu')
-                    else
-                        break
-                    end
-                end
-                return true
-            end
-        }))
+        for i = 1, math.min(#G.hand.highlighted, card.ability.max_highlighted) do
+            G.E_MANAGER:add_event(Event({func = function()
+                play_sound('tarot1')
+                card:juice_up(0.3, 0.5)
+                return true end }))
+            
+            G.E_MANAGER:add_event(Event({trigger = 'after',delay = 0.1,func = function()
+                G.hand.highlighted[i]:set_seal(card.ability.extra, nil, true)
+                return true end }))
+            
+            delay(0.5)
+        end
+        G.E_MANAGER:add_event(Event({trigger = 'after', delay = 0.2,func = function() G.hand:unhighlight_all(); return true end }))
     end
 }
 
 SMODS.Atlas {
     key = "honk_atlas",
-
     path = "honk.png",
     px = 71,
     py = 95
