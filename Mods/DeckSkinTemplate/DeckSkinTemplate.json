@@ -1,0 +1,13 @@
+{
+	"id": "DeckSkinExample",
+	"name": "Example Deck Skin",
+	"author": ["WilsontheWolf"],
+	"description": "An example for how to make a deck skin",
+	"prefix": "ExampleDeckSkin",
+	"badge_colour": "fc8048",
+	"dependencies": [
+		"Steamodded (>=1.0.0~ALPHA-1404b)"
+	],
+	"main_file": "DeckSkinTemplate.lua",
+	"version": "1.0.0"
+}
