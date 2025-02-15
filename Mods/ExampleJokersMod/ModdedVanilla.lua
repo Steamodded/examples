@@ -253,12 +253,12 @@ SMODS.Joker {
 	rarity = 4,
 	atlas = 'ModdedVanilla',
 	pos = { x = 0, y = 1 },
-	-- soul_pos sets the soul sprite, only used in vanilla for legenedaries and Hologram.
+	-- soul_pos sets the soul sprite, only used in vanilla for legendary jokers and Hologram.
 	soul_pos = { x = 4, y = 1 },
 	cost = 20,
 	loc_vars = function(self, info_queue, card)
 		-- This is the way to add an info_queue, which is extra information about other cards
-		-- usually, like Stone Cards on Marble/Stone Jokers, Steel Cards on Steel Joker, and
+		-- like Stone Cards on Marble/Stone Jokers, Steel Cards on Steel Joker, and
 		-- in this case, information about negative editions on Perkeo.
 		info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
 	end,
