@@ -36,7 +36,7 @@ SMODS.DeckSkin {
 			ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', "King", "Ace",},
 			display_ranks = {"King", "Queen", "Jack"},
 			atlas = atlas_lc.key,
-			pos_style = 'deck',
+			pos_style = 'suit',
 			suit_icon = {
 				atlas = icon_lc.key,
 			},
@@ -46,7 +46,7 @@ SMODS.DeckSkin {
 			ranks = {'2', '3', '4', '5', '6', '7', '8', '9', '10', 'Jack', 'Queen', "King", "Ace",},
 			display_ranks = {"King", "Queen", "Jack"},
 			atlas = atlas_hc.key,
-			pos_style = 'deck',
+			pos_style = 'suit',
 			colour = HEX("9734f0"),
 			suit_icon = {
 				atlas = icon_hc.key,
