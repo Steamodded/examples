@@ -1,4 +1,6 @@
 --[[
+Vanilla jokers implemented into an SMODS format
+For more examples, check https://github.com/nh6574/VanillaRemade
 ------------------------------Basic Table of Contents------------------------------
 Line 17, Atlas ---------------- Explains the parts of the atlas.
 Line 29, Joker 2 -------------- Explains the basic structure of a joker
@@ -71,14 +73,9 @@ SMODS.Joker {
 		-- Tests if context.joker_main == true.
 		-- joker_main is a SMODS specific thing, and is where the effects of jokers that just give +stuff in the joker area area triggered, like Joker giving +Mult, Cavendish giving XMult, and Bull giving +Chips.
 		if context.joker_main then
-			-- Tells the joker what to do. In this case, it pulls the value of mult from the config, and tells the joker to use that variable as the "mult_mod".
+			-- Tells the joker what to do. In this case, it pulls the value of mult from the config, and tells the joker to use that variable as the "mult".
 			return {
-				mult_mod = card.ability.extra.mult,
-				-- This is a localize function. Localize looks through the localization files, and translates it. It ensures your mod is able to be translated. I've left it out in most cases for clarity reasons, but this one is required, because it has a variable.
-				-- This specifically looks in the localization table for the 'variable' category, specifically under 'v_dictionary' in 'localization/en-us.lua', and searches that table for 'a_mult', which is short for add mult.
-				-- In the localization file, a_mult = "+#1#". Like with loc_vars, the vars in this message variable replace the #1#.
-				message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
-				-- Without this, the mult will stil be added, but it'll just show as a blank red square that doesn't have any text.
+				mult = card.ability.extra.mult,
 			}
 		end
 	end
@@ -107,8 +104,15 @@ SMODS.Joker {
 	calculate = function(self, card, context)
 		if context.joker_main then
 			return {
-				chip_mod = card.ability.extra.chips,
-				message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+                chips = card.ability.extra.chips,
+                -- If you wanted to change the default chips message you can do:
+                chip_message = {
+					-- This is a localize function. Localize looks through the localization files, and translates it. It ensures your mod is able to be translated. I've left it out in most cases for clarity reasons, but this one is required, because it has a variable.
+					-- This specifically looks in the localization table for the 'variable' category, specifically under 'v_dictionary' in 'localization/en-us.lua' (or the active language), and searches that table for 'a_chips', which is short for add chips.
+					-- In the localization file, a_chips = "+#1#". Like with loc_vars, the vars in this message variable replace the #1#.
+                    message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } },
+					colour = G.C.CHIPS
+				}
 			}
 		end
 
@@ -124,10 +128,6 @@ SMODS.Joker {
 			return {
 				message = 'Upgraded!',
 				colour = G.C.CHIPS,
-				-- The return value, "card", is set to the variable "card", which is the joker.
-				-- Basically, this tells the return value what it's affecting, which if it's the joker itself, it's usually card.
-				-- It can be things like card = context.other_card in some cases, so specifying card (return value) = card (variable from function) is required.
-				card = card
 			}
 		end
 	end
@@ -226,10 +226,7 @@ SMODS.Joker {
 			-- It is each card 1 by 1, but in other cases, you'd need to iterate over the scoring hand to check which cards are there.
 			if context.other_card:is_face() then
 				return {
-					message = 'Again!',
 					repetitions = card.ability.extra.repetitions,
-					-- The card the repetitions are applying to is context.other_card
-					card = context.other_card
 				}
 			end
 		end
@@ -281,7 +278,7 @@ SMODS.Joker {
 				func = function()
 					-- pseudorandom_element is a vanilla function that chooses a single random value from a table of values, which in this case, is your consumables.
 					-- pseudoseed('perkeo2') could be replaced with any text string at all - It's simply a way to make sure that it's affected by the game seed, because if you use math.random(), a base Lua function, then it'll generate things truly randomly, and can't be reproduced with the same Balatro seed. LocalThunk likes to have the joker names in the pseudoseed string, so you'll often find people do the same.
-					local card = copy_card(pseudorandom_element(G.consumeables.cards, pseudoseed('perkeo2')), nil)
+					local card = copy_card(pseudorandom_element(G.consumeables.cards, 'perkeo2'), nil)
 
 					-- Vanilla function, it's (edition, immediate, silent), so this is ({edition = 'e_negative'}, immediate = true, silent = nil)
 					card:set_edition('e_negative', true)
@@ -292,16 +289,11 @@ SMODS.Joker {
 					return true
 				end
 			}))
-			--[[ card_eval_status_text lets you send status text, those pop-up messages, outside
-				of when you return from a calculate function. It's good for things like this which
-				don't have any reason to have a return, as there's no chips/mult/whatever, but
-				there is still an effect that you should notify a player about, creating a duplicate.
-					
-				I recommend looking at the function itself in common_events.lua to see what all you can give it,
-				but, this one is saying, on the joker, 'card', send a custom effect, 'extra', nil, nil, nil, 'the effect has this information',
-				and that last one is a table, surrounded by {}, and can contain stuff like the message itself and the colour and other various things.]]
-			card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil,
-				{ message = localize('k_duplicated_ex') })
+			--[[ You can send a message outside a return by using SMODS.calculate_effect]]
+			SMODS.calculate_effect(
+                { message = localize('k_duplicated_ex') }, -- This can be any `calculate` return table
+                context.blueprint_card or card -- The card used by the message
+			)
 		end
 	end
 }
@@ -329,11 +321,15 @@ SMODS.Joker {
 		if context.individual and context.cardarea == G.play then
 			-- :get_id tests for the rank of the card. Other than 2-10, Jack is 11, Queen is 12, King is 13, and Ace is 14.
 			if context.other_card:get_id() == 10 or context.other_card:get_id() == 4 then
-				-- Specifically returning to context.other_card is fine with multiple values in a single return value, chips/mult are different from chip_mod and mult_mod, and automatically come with a message which plays in order of return.
 				return {
 					chips = card.ability.extra.chips,
-					mult = card.ability.extra.mult,
-					card = context.other_card
+                    mult = card.ability.extra.mult,
+                    -- The above will display the chips and mult on the playing card like vanilla Walkie Talkie
+                    -- But if you want to change the card the message is on you can do:
+                    message_card = context.other_card,
+					-- The return value, "message_card", is set to the variable "other_card", which is the playing card.
+					-- It can be things like message_card = card if you wanted the message to be on the joker, for example
+					-- Basically, this sets which card should display the message, which if it's the joker itself, it's usually card.
 				}
 			end
 		end
@@ -361,45 +357,27 @@ SMODS.Joker {
 	cost = 5,
 	-- Gros Michel is incompatible with the eternal sticker, so this makes sure it can't be eternal.
 	eternal_compat = false,
-	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.mult, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+    loc_vars = function(self, info_queue, card)
+		-- This gets any possible modifications a card might be performing on the probabilities
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'gros_michel2')
+		return { vars = { card.ability.extra.mult, numerator, denominator } }
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
 			return {
-				mult_mod = card.ability.extra.mult,
-				message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } }
+				mult = card.ability.extra.mult
 			}
 		end
 
 		-- Checks to see if it's end of round, and if context.game_over is false.
-		-- Also, not context.repetition ensures it doesn't get called during repetitions.
-		if context.end_of_round and not context.repetition and context.game_over == false and not context.blueprint then
-			-- Another pseudorandom thing, randomly generates a decimal between 0 and 1, so effectively a random percentage.
-			if pseudorandom('gros_michel2') < G.GAME.probabilities.normal / card.ability.extra.odds then
-				-- This part plays the animation.
-				G.E_MANAGER:add_event(Event({
-					func = function()
-						play_sound('tarot1')
-						card.T.r = -0.2
-						card:juice_up(0.3, 0.4)
-						card.states.drag.is = true
-						card.children.center.pinch.x = true
-						-- This part destroys the card.
-						G.E_MANAGER:add_event(Event({
-							trigger = 'after',
-							delay = 0.3,
-							blockable = false,
-							func = function()
-								G.jokers:remove_card(card)
-								card:remove()
-								card = nil
-								return true;
-							end
-						}))
-						return true
-					end
-				}))
+		-- Also, context.main_eval ensures it doesn't get called during repetitions.
+		if context.end_of_round and context.main_eval and context.game_over == false and not context.blueprint then
+            -- Use SMODS.pseudorandom_probability for probability effects. The arguments used here are (card, seed, numerator, denominator)
+			-- More information here: https://github.com/Steamodded/smods/wiki/Calculate-Functions#using-probability
+			if SMODS.pseudorandom_probability(card, 'gros_michel2', 1, card.ability.extra.odds) then
+                -- This function destroys the card and plays the animation.
+				-- The last `true` tells the function to play the food joker eaten animation
+				SMODS.destroy_cards(card, nil, nil, true)
 				-- Sets the pool flag to true, meaning Gros Michel 2 doesn't spawn, and Cavendish 2 does.
 				G.GAME.pool_flags.gros_michel_extinct2 = true
 				return {
@@ -435,38 +413,18 @@ SMODS.Joker {
 	cost = 4,
 	eternal_compat = false,
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.Xmult, (G.GAME.probabilities.normal or 1), card.ability.extra.odds } }
+		local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'cavendish2')
+		return { vars = { card.ability.extra.Xmult, numerator, denominator } }
 	end,
 	calculate = function(self, card, context)
 		if context.joker_main then
 			return {
-				message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } },
-				Xmult_mod = card.ability.extra.Xmult
+				xmult = card.ability.extra.Xmult
 			}
 		end
 		if context.end_of_round and context.game_over == false and not context.repetition and not context.blueprint then
-			if pseudorandom('cavendish2') < G.GAME.probabilities.normal / card.ability.extra.odds then
-				G.E_MANAGER:add_event(Event({
-					func = function()
-						play_sound('tarot1')
-						card.T.r = -0.2
-						card:juice_up(0.3, 0.4)
-						card.states.drag.is = true
-						card.children.center.pinch.x = true
-						G.E_MANAGER:add_event(Event({
-							trigger = 'after',
-							delay = 0.3,
-							blockable = false,
-							func = function()
-								G.jokers:remove_card(card)
-								card:remove()
-								card = nil
-								return true;
-							end
-						}))
-						return true
-					end
-				}))
+			if SMODS.pseudorandom_probability(card, 'cavendish2', 1, card.ability.extra.odds) then
+				SMODS.destroy_cards(card, nil, nil, true)
 				return {
 					message = 'Extinct!'
 				}
@@ -521,15 +479,12 @@ SMODS.Joker {
 			card.ability.extra.chips = card.ability.extra.chips + card.ability.extra.chip_mod
 			return {
 				message = localize('k_upgrade_ex'),
-				colour = G.C.CHIPS,
-				card = card
+				colour = G.C.CHIPS
 			}
 		end
 		if context.joker_main and card.ability.extra.chips > 0 then
 			return {
-				message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } },
-				chip_mod = card.ability.extra.chips,
-				colour = G.C.CHIPS
+				chips = card.ability.extra.chips
 			}
 		end
 	end
@@ -565,10 +520,6 @@ function SMODS.current_mod.reset_game_globals(run_start)
 		G.GAME.current_round.castle2_card.suit = castle_card.base.suit
 	end
 end
-
--- TODO:
--- Have people proofread, make sure my overly long way of writing is actually legible or cut down to make sure it's legible.
-
 
 ----------------------------------------------
 ------------MOD CODE END----------------------
