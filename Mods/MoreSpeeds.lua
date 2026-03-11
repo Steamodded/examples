@@ -3,7 +3,7 @@
 --- MOD_ID: MoreSpeed
 --- MOD_AUTHOR: [Steamo]
 --- MOD_DESCRIPTION: More Speed options!
---- This mod is deprecated, use Nopeus instead: https://github.com/jenwalter666/JensBalatroCollection/tree/main/Nopeus
+--- This mod is deprecated, use Handy instead: https://github.com/SleepyG11/HandyBalatro
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
