@@ -2,17 +2,17 @@
 Vanilla jokers implemented into an SMODS format
 For more examples, check https://github.com/nh6574/VanillaRemade
 ------------------------------Basic Table of Contents------------------------------
-Line 17, Atlas ---------------- Explains the parts of the atlas.
-Line 29, Joker 2 -------------- Explains the basic structure of a joker
-Line 88, Runner 2 ------------- Uses a bit more complex contexts, and shows how to scale a value.
-Line 127, Golden Joker 2 ------ Shows off a specific function that's used to add money at the end of a round.
+Line 19, Atlas ---------------- Explains the parts of the atlas.
+Line 31, Joker 2 -------------- Explains the basic structure of a joker
+Line 85, Runner 2 ------------- Uses a bit more complex contexts, and shows how to scale a value.
+Line 137, Golden Joker 2 ------ Shows off a specific function that's used to add money at the end of a round.
 Line 163, Merry Andy 2 -------- Shows how to use add_to_deck and remove_from_deck.
 Line 207, Sock and Buskin 2 --- Shows how you can retrigger cards and check for faces
-Line 240, Perkeo 2 ------------ Shows how to use the event manager, eval_status_text, randomness, and soul_pos.
-Line 310, Walkie Talkie 2 ----- Shows how to look for multiple specific ranks, and explains returning multiple values
-Line 344, Gros Michel 2 ------- Shows the no_pool_flag, sets a pool flag, another way to use randomness, and end of round stuff.
-Line 418, Cavendish 2 --------- Shows yes_pool_flag, has X Mult, mainly to go with Gros Michel 2.
-Line 482, Castle 2 ------------ Shows the use of reset_game_globals and colour variables in loc_vars, as well as what a hook is and how to use it.
+Line 237, Perkeo 2 ------------ Shows how to use the event manager, eval_status_text, randomness, and soul_pos.
+Line 302, Walkie Talkie 2 ----- Shows how to look for multiple specific ranks, and explains returning multiple values
+Line 340, Gros Michel 2 ------- Shows the no_pool_flag, sets a pool flag, another way to use randomness, and end of round stuff.
+Line 396, Cavendish 2 --------- Shows yes_pool_flag, has X Mult, mainly to go with Gros Michel 2.
+Line 440, Castle 2 ------------ Shows the use of reset_game_globals and colour variables in loc_vars, as well as what a hook is and how to use it.
 --]]
 
 --Creates an atlas for cards to use
