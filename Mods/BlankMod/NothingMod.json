@@ -1,0 +1,9 @@
+{
+  "id": "NothingMod",
+  "name": "The Nothing Mod",
+  "author": ["Steamo"],
+  "description": "This Mod doesn't do anything !",
+  "prefix": "NothingMod",
+  "main_file": "NothingMod.lua",
+  "version": "1.0.0"
+}

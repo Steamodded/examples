@@ -1,0 +1,10 @@
+{
+  "id": "CKeybinds",
+  "name": "CustomKeybinds",
+  "author": ["stupxd"],
+  "description": "Custom keybinds example!",
+  "prefix": "CKeybinds",
+  "main_file": "TestKeybinds.lua",
+  "dependencies": ["Steamodded (>=1.0.0~ALPHA-0812d)"],
+  "version": "1.0.0"
+}

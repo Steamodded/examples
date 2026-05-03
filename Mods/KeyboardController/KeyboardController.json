@@ -1,0 +1,15 @@
+{
+	"id": "KeyboardController",
+	"name": "Keyboard Controller",
+	"author": ["Aure"],
+	"description": "Enables the built-in keyboard controller and adds config options to customize it.",
+	"prefix": "kbc",
+	"dependencies": [
+		"Steamodded (>=1.0.0~ALPHA-0812d)"
+	],
+	"conflicts": [
+		"BlackHole"
+	],
+	"main_file": "KeyboardController.lua",
+	"version": "1.0.0"
+}

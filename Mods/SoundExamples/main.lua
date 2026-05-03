@@ -1,12 +1,3 @@
---- STEAMODDED HEADER
---- MOD_NAME: Lobotomy Corporation Soundtrack
---- MOD_ID: LobcorpSoundtrack
---- PREFIX: lobc_ost
---- MOD_AUTHOR: [Mysthaps]
---- MOD_DESCRIPTION: A standalone mod that replaces the in-game music with Lobotomy Corporation themes.
---- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0909a]
---- CONFLICTS: [LobotomyCorp>=0.9.0]
-
 -- For "pitch = 0.7", speed up the sound files by 10/7 for them to sound normal in-game.
 SMODS.Sound({
     vol = 0.6,

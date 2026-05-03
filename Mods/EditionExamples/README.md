@@ -5,21 +5,11 @@ Feel free to copy and use this* for any of projects!
 
 ***`anaglyphic`, `fluorescent`, `gilded`, `ionized`, `monochrome`, `greyscale` and `overexposed` shaders are not for public use and are only provided for learning purposes! (as requested by Eremel)**
 
-## Notes in case you can't read
-**If you want an Edition to have more than one of the following:**
-- mult
-- chips
-- x_mult
-
-Then you will have to write the code for it yourself!
-
-**Also as of right now, editions do NOT work with:**
-- h_mult (Mult for holding in hand)
-- h_x_mult (X Mult for holding in hand)
-
-Again, you'd have to write it yourself.
+Check [VanillaRemade](https://github.com/nh6574/VanillaRemade/blob/main/src/editions.lua) for examples of vanilla editions.
 
 ## Working with Shaders
+See [the wiki](https://github.com/Steamodded/smods/wiki/SMODS.Shader-and-SMODS.ScreenShader) for documentation on `SMODS.Shader`
+
 [ionized.fs](assets/shaders/ionized.fs) has shader code explanation with comments.
 For a general guide, look at [LÖVE introduction to shaders](https://blogs.love2d.org/content/beginners-guide-shaders).
 

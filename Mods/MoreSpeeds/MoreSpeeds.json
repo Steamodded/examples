@@ -1,0 +1,9 @@
+{
+  "id": "MoreSpeed",
+  "name": "More Speed",
+  "author": ["Steamo"],
+  "description": "More Speed options! (DEPRECATED)",
+  "prefix": "MoreSpeed",
+  "main_file": "MoreSpeeds.lua",
+  "version": "1.0.0"
+}

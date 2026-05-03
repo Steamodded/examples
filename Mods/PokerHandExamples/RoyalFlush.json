@@ -1,0 +1,11 @@
+{
+  "id": "RoyalFlush",
+  "name": "Royal Flush",
+  "author": ["MathIsFun_"],
+  "description": "Adds Royal Flush to demonstrate the Steamodded Poker Hand API",
+  "prefix": "ex_royal_flush",
+  "badge_colour": "A67C00",
+  "dependencies": ["Steamodded (>=1.0.0~ALPHA-0812d)"],
+  "main_file": "RoyalFlush.lua",
+  "version": "1.0.0"
+}

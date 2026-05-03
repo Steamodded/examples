@@ -1,0 +1,10 @@
+{
+  "id": "seel-mod",
+  "name": "Modded Seal",
+  "author": ["stupxd"],
+  "description": "Modded seal example",
+  "prefix": "seel",
+  "dependencies": ["Steamodded (>=1.0.0~ALPHA-1314c)"],
+  "main_file": "SealsMod.lua",
+  "version": "1.0.0"
+}

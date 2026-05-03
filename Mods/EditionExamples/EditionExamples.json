@@ -1,0 +1,11 @@
+{
+  "id": "EditionExamples",
+  "name": "Edition Examples",
+  "author": ["Eremel_", "stupxd"],
+  "description": "Adds editions that demonstrate Edition API.",
+  "prefix": "edex",
+  "badge_colour": "3FC7EB",
+  "dependencies": ["Steamodded (>=1.0.0~ALPHA-0905a)"],
+  "main_file": "EditionExamples.lua",
+  "version": "1.0.0"
+}

@@ -1,0 +1,10 @@
+{
+  "id": "NegateTexturePack",
+  "name": "Negate Texture Pack",
+  "author": ["Steamo"],
+  "description": "Negated Balatro...",
+  "prefix": "negtext",
+  "dependencies": ["Steamodded (>=1.0.0~ALPHA-0812d)"],
+  "main_file": "NegateTexturePack.lua",
+  "version": "1.0.0"
+}

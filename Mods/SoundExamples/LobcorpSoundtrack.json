@@ -1,0 +1,13 @@
+{
+  "id": "LobcorpSoundtrack",
+  "name": "Lobotomy Corporation Soundtrack",
+  "author": ["Mysthaps"],
+  "description": "A standalone mod that replaces the in-game music with Lobotomy Corporation themes.",
+  "prefix": "lobc_ost",
+  "dependencies": ["Steamodded (>=1.0.0~ALPHA-0909a)"],
+  "conflicts": [
+		"LobotomyCorp (>=0.9.0)"
+	],
+  "main_file": "main.lua",
+  "version": "1.0.0"
+}

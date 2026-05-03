@@ -1,19 +1,7 @@
---- STEAMODDED HEADER
---- MOD_NAME: Modded Seal
---- MOD_ID: seel-mod
---- MOD_AUTHOR: [stupxd]
---- PREFIX: seel
---- MOD_DESCRIPTION: Modded seal example
---- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-1314c]
-
-----------------------------------------------
-------------MOD CODE -------------------------
-
 SMODS.Seal {
-    name = "modded-Seal",
     key = "blu",
     badge_colour = HEX("1d4fd7"),
-	config = { mult = 5, chips = 20, money = 1, x_mult = 1.5  },
+	config = { mult = 5, chips = 20, money = 1, x_mult = 1.5 },
     loc_txt = {
         -- Badge name (displayed on card description when seal is applied)
         label = 'Blu Seal',
@@ -26,8 +14,8 @@ SMODS.Seal {
             '{X:mult,C:white}X#4#{} Mult',
         }
     },
-    loc_vars = function(self, info_queue)
-        return { vars = {self.config.mult, self.config.chips, self.config.money, self.config.x_mult, } }
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.seal.mult, card.ability.seal.chips, card.ability.seal.money, card.ability.seal.x_mult, } }
     end,
     atlas = "seal_atlas",
     pos = {x=0, y=0},
@@ -38,10 +26,10 @@ SMODS.Seal {
         -- main_scoring context is used whenever the card is scored
         if context.main_scoring and context.cardarea == G.play then
             return {
-                mult = self.config.mult,
-                chips = self.config.chips,
-                dollars = self.config.money,
-                x_mult = self.config.x_mult
+                mult = card.ability.seal.mult,
+                chips = card.ability.seal.chips,
+                dollars = card.ability.seal.money,
+                x_mult = card.ability.seal.x_mult
             }
         end
     end,
@@ -67,9 +55,9 @@ SMODS.Consumable {
     },
     loc_vars = function(self, info_queue, card)
         -- Handle creating a tooltip with seal args.
-        info_queue[#info_queue+1] = G.P_SEALS[(card.ability or self.config).extra]
+        info_queue[#info_queue+1] = G.P_SEALS[card.ability.extra]
         -- Description vars
-        return {vars = {(card.ability or self.config).max_highlighted}}
+        return {vars = {card.ability.max_highlighted}}
     end,
     loc_txt = {
         name = 'Honk',

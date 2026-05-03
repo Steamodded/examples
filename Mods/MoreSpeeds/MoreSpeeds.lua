@@ -1,14 +1,4 @@
---- STEAMODDED HEADER
---- MOD_NAME: More Speed
---- MOD_ID: MoreSpeed
---- MOD_AUTHOR: [Steamo]
---- MOD_DESCRIPTION: More Speed options!
 --- This mod is deprecated, use Handy instead: https://github.com/SleepyG11/HandyBalatro
-
-----------------------------------------------
-------------MOD CODE -------------------------
-
-
 
 local setting_tabRef = G.UIDEF.settings_tab
 function G.UIDEF.settings_tab(tab)
@@ -74,6 +64,3 @@ function G.UIDEF.settings_tab(tab)
     end
     return setting_tab
 end
-
-----------------------------------------------
-------------MOD CODE END----------------------

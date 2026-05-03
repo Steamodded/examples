@@ -1,0 +1,9 @@
+{
+  "id": "EscapeExitButton",
+  "name": "Escape Exit Button",
+  "author": ["Steamo"],
+  "description": "Add an \"Exit\" button into the \"Escape\" menu",
+  "prefix": "EscapeExitButton",
+  "main_file": "EscapeExitButton.lua",
+  "version": "1.0.0"
+}

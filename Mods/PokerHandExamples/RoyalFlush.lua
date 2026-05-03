@@ -1,12 +1,3 @@
---- STEAMODDED HEADER
---- MOD_NAME: Royal Flush
---- MOD_ID: RoyalFlush
---- MOD_AUTHOR: [MathIsFun_]
---- MOD_DESCRIPTION: Adds Royal Flush to demonstrated Steamodded Poker Hand API
---- BADGE_COLOUR: A67C00
---- PREFIX: ex_royal_flush
---- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0812d]
-
 SMODS.PokerHand {
     key = 'Royal Flush',
     chips = 110,
@@ -48,7 +39,6 @@ SMODS.Atlas { key = 'vulcan', path = 'vulcan.png', px = 71, py = 95 }
 SMODS.Consumable {
     set = 'Planet',
     key = 'vulcan',
-    --! `h_` prefix was removed
     config = { hand_type = 'ex_royal_flush_Royal Flush' },
     pos = {x = 0, y = 0 },
     atlas = 'vulcan',
@@ -68,6 +58,3 @@ SMODS.Consumable {
         }
     }
 }
-
-----------------------------------------------
-------------MOD CODE -------------------------

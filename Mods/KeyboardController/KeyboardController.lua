@@ -1,13 +1,3 @@
---- STEAMODDED HEADER
---- MOD_NAME: Keyboard Controller
---- MOD_ID: KeyboardController
---- PREFIX: kbc
---- MOD_AUTHOR: [Aure]
---- MOD_DESCRIPTION: Enables the built-in keyboard controller and adds config options to customize it.
---- DEPENDENCIES: [Steamodded>=1.0.0~ALPHA-0812d]
---- CONFLICTS: [BlackHole]
---- VERSION: 1.0.0
-
 KBC = SMODS.current_mod
 KBC.save_config = function(self)
     SMODS.save_mod_config(self)
