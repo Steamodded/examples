@@ -1,0 +1,10 @@
+{
+  "id": "ExampleDecks",
+  "name": "Example Decks",
+  "author": ["Steamo", "MathIsFun_"],
+  "description": "Example Decks",
+  "prefix": "deckex",
+  "dependencies": ["Steamodded (>=1.0.0~ALPHA-0812d)"],
+  "main_file": "main.lua",
+  "version": "1.0.0"
+}
