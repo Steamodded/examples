@@ -54,7 +54,7 @@ SMODS.Joker {
 		of going through all your code to change each instance individually.
 		]]
 	config = { extra = { mult = 4 } },
-	-- loc_vars gives your loc_text variables to work with, in the format of #n#, n being the variable in order.
+	-- loc_vars gives your loc_txt variables to work with, in the format of #n#, n being the variable in order.
 	-- #1# is the first variable in vars, #2# the second, #3# the third, and so on.
 	-- It's also where you'd add to the info_queue, which is where things like the negative tooltip are.
 	loc_vars = function(self, info_queue, card)
