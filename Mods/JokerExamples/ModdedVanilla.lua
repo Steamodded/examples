@@ -31,7 +31,7 @@ SMODS.Atlas {
 SMODS.Joker {
 	-- How the code refers to the joker.
 	key = 'joker2',
-	-- loc_text is the actual name and description that show in-game for the card.
+	-- loc_txt is the actual name and description that show in-game for the card.
 	loc_txt = {
 		name = 'Joker 2',
 		text = {
