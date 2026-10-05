@@ -1,0 +1,11 @@
+{
+  "id": "ScreenshaderExamples",
+  "name": "ScreenShader Examples",
+  "author": ["ivy felli"],
+  "description": "ScreenShader API demonstration.",
+  "prefix": "scrshdex",
+  "badge_colour": "3FC7EB",
+  "dependencies": ["Steamodded (>=1.0.0~BETA-1501a)"],
+  "main_file": "ScreenshaderExamples.lua",
+  "version": "1.0.0"
+}
