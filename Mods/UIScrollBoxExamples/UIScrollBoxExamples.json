@@ -1,0 +1,10 @@
+{
+  "id": "UIScrollBox",
+  "name": "UIScrollBox Examples",
+  "author": ["SleepyG11"],
+  "description": "UIScrollBox API demonstration.",
+  "prefix": "uiscroll",
+  "dependencies": ["Steamodded (>=1.0.0~BETA-1531zeebee)"],
+  "main_file": "UIScrollBoxExamples.lua",
+  "version": "1.0.0"
+}
